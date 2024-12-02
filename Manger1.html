@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manger sans soucis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background-color: #4caf50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2rem;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .category {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .category img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        .category div {
+            flex: 1;
+        }
+        .category h3 {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1.5rem;
+        }
+        .recipes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            width: calc(33% - 20px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card h3 {
+            padding: 15px;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        .card p {
+            padding: 0 15px 15px;
+        }
+        .btn {
+            display: inline-block;
+            margin: 15px;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        footer {
+            background-color: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 500px;
+            z-index: 1000;
+        }
+        .modal.active {
+            display: block;
+        }
+        .modal-header {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        .modal-body {
+            padding: 20px;
+        }
+        .modal-footer {
+            text-align: right;
+            padding: 10px;
+        }
+        .modal-footer button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .modal-footer button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Manger sans soucis</h1>
+        <nav>
+            <a href="#recipes">Recettes Healthy</a>
+            <a href="#consultations">Consultations</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="recipes">
+            <h2>Recettes 100% Healthy</h2>
+            <div class="category">
+                <div onclick="showCategory('drinks')">
+                    <img src="https://i.pinimg.com/236x/ce/9b/09/ce9b095c15c9ff97ef7fc39cf8bf24ca.jpg" alt="Drinks">
+                    <h3>Drinks</h3>
+                </div>
+                <div onclick="showCategory('salade')">
+                    <img src="https://i.pinimg.com/736x/1e/3f/8e/1e3f8ed04f95eec6c98d268d04fa19d0.jpg" alt="Salade">
+                    <h3>Salade de jour</h3>
+                </div>
+                <div onclick="showCategory('tropfaim')">
+                    <img src="https://i.pinimg.com/736x/00/4b/92/004b92536162c6f3a239028b4b920182.jpg" alt="Trop Faim">
+                    <h3>Trop Faim</h3>
+                </div>
+                <div onclick="showCategory('Small Snack')">
+                    <img src="https://i.pinimg.com/736x/23/ab/2b/23ab2b4e720f9a3b459f263692c0cc56.jpg" alt="Small Snack">
+                    <h3>Small Snack</h3>
+                </div>
+            </div>
+            <div id="drinks" class="recipes" style="display: none;">
+                <div class="card" onclick="showRecipeDetails('Smoothie Énergétique', 'Ingrédients : banane, épinards, lait d’amande. Étapes : mélanger tous les ingrédients🥤.')">
+                    <img src="https://i.pinimg.com/736x/0b/a3/a3/0ba3a346ca4a03c8dbd29dc4b69af542.jpg" alt="Recette 1">
+                    <h3>Recette 1: Smoothie Énergétique</h3>
+                </div>
+            </div>
+            <div id="salade" class="recipes" style="display: none;">
+                <div class="card" onclick="showRecipeDetails('Salade Arc-en-ciel', 'Ingrédients : tomates, concombre, Maïs, avocat, huile d\'olive, sel, citron. Étapes : couper les légumes, ajouter l\'huile d\'olive, sel et citron et Partez à la découverte de saveurs inoubliables ! 🌍🍴.')">
+                    <img src="https://i.pinimg.com/736x/32/86/4f/32864f0764c85fab5e2afadddb1d3454.jpg" alt="Recette 2">
+                    <h3>Recette 2: Salade Arc-en-ciel</h3>
+                </div>
+            </div>
+            <div id="tropfaim" class="recipes" style="display: none;">
+                <div class="card" onclick="showRecipeDetails('Soupe Détox', 'Ingrédients : 2 courgettes, 2 carottes, 1 pomme de terre, 1 morceau de gingembre, 1 gousse d\'ail, 1 oignon, 1 cuillère à café de curcuma, 1 pincée de poivre noir, sel, 1 cuillère à soupe d\'huile d\'olive.Étapes : Épluchez les légumes, faites revenir l\'oignon et l\'ail dans de l\'huile d\'olive, ajoutez les autres légumes et épices, versez de l\'eau, faites mijoter et mixez.Bon appétit😋')">
+                    <img src="https://i.pinimg.com/736x/a5/49/1a/a5491aad3f88193c577aaae0c4e76b42.jpg" alt="Recette 3">
+                    <h3>Recette 3: Soupe Détox</h3>
+                </div>
+            </div>
+            <div id="Small Snack" class="recipes" style="display: none;">
+            <div class="card" onclick="showRecipeDetails('Energy balls à la noix de coco et aux dattes', 'Ingrédients : 2 bananes bien mûres, 1 tasse de flocons d\'avoine, 1/4 tasse de beurre de cacahuète ou d\'amande (facultatif), 1/4 tasse de noix ou de graines (amandes, noisettes, graines de chia, etc. – facultatif), 1/4 cuil. à café de cannelle (facultatif), 1 cuil. à soupe de miel ou de sirop d\'érable (facultatif). Étapes : Épluchez les bananes et écrasez-les dans un bol, ajoutez les flocons d\'avoine et le beurre de cacahuète (si désiré), mélangez bien. Ajoutez les noix ou graines, la cannelle et le miel si vous le souhaitez. Pressez la préparation dans un moule et réfrigérez pendant 1 heure. Coupez en barres et dégustez la magie ! ✨')">
+                <img src="https://i.pinimg.com/736x/bc/0d/b3/bc0db310bc6b5f6c1543e05017d776e4.jpg" alt="Recette 4">
+                <h3>Recette 4: Energy balls à la noix de coco et aux dattes</h3>
+            </div>
+        </div>
+        </section>
+
+        <section id="consultations">
+            <h2>Consultations avec nos Nutritionnistes</h2>
+            <a href="#" class="btn" onclick="showForm()">Prendre Rendez-vous</a>
+            <a href="#" class="btn" onclick="showExperts()">Voir les profils des experts</a>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2024 Manger sans soucis | Contact : info@mangersanssoucis.com</p>
+    </footer>
+
+    <div class="modal" id="recipeModal">
+        <div class="modal-header">
+            <h3 id="recipeTitle"></h3>
+        </div>
+        <div class="modal-body" id="recipeContent"></div>
+        <div class="modal-footer">
+            <button onclick="closeModal()">Fermer</button>
+        </div>
+    </div>
+
+    <div class="modal" id="formModal">
+        <div class="modal-header">
+            <h3>Prendre Rendez-vous</h3>
+        </div>
+        <div class="modal-body">
+            <form>
+                <label for="name">Nom :</label><br>
+                <input type="text" id="name" name="name" required><br><br>
+                <label for="email">Email :</label><br>
+                <input type="email" id="email" name="email" required><br><br>
+                <label for="date">Date du rendez-vous :</label><br>
+                <input type="date" id="date" name="date" required><br><br>
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
+    </div>
+    <div class="modal" id="expertsModal">
+        <div class="modal-header">
+            <h3>Profils des Nutritionnistes</h3>
+        </div>
+        <div class="modal-body">
+            <div class="card">
+                <img src="https://cdn-s-www.estrepublicain.fr/images/50C42109-9EE7-4A06-BA92-1668370C398E/NW_raw/diplomee-depuis-2017-la-riolaise-ouvre-son-cabinet-de-dieteticienne-nutritionniste-en-liberal-1728496200.jpg" alt="Expert 1">
+                <h3>Dr. Marie Dupont</h3>
+                <p>Spécialiste en nutrition clinique.</p>
+            </div>
+            <div class="card">
+                <img src="https://static1.purepeople.com/articles/7/52/72/67/@/7779319-jacques-martin-est-decede-il-y-a-dix-sep-1200x0-5.jpg" alt="Expert 2">
+                <h3>Dr. Jacques Martin</h3>
+                <p>Expert en régimes personnalisés.</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button onclick="closeModal()">Fermer</button>
+        </div>
+    </div>
+
+    <script>
+        function showCategory(category) {
+            const categories = ['drinks', 'salade', 'tropfaim', 'Small Snack'];
+            categories.forEach(cat => {
+                document.getElementById(cat).style.display = (cat === category) ? 'flex' : 'none';
+            });
+        }
+    
+        function showRecipeDetails(title, content) {
+            document.getElementById('recipeTitle').innerText = title;
+            document.getElementById('recipeContent').innerText = content;
+            document.getElementById('recipeModal').classList.add('active');
+        }
+    
+        function closeModal() {
+            document.getElementById('recipeModal').classList.remove('active');
+            document.getElementById('formModal').classList.remove('active');
+            document.getElementById('expertsModal').classList.remove('active');
+        }
+    
+        function showForm() {
+            document.getElementById('formModal').classList.add('active');
+        }
+    
+        function showExperts() {
+            document.getElementById('expertsModal').classList.add('active');
+        }
+    </script>
+    
+</body>
+</html>
