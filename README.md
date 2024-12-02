@@ -1,1 +1,2 @@
 # Mangersanssoucis
+Page web dédiée à une alimentation saine et équilibrée. Elle propose des recettes variées classées par catégories, avec des détails interactifs pour chaque plat. Les utilisateurs peuvent également réserver une consultation avec des nutritionnistes ou découvrir leurs profils. Grâce à un design moderne et une navigation intuitive, le site offre une expérience pratique et engageante.
